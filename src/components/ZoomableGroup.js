@@ -1,8 +1,7 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import React from "react"
-import PropTypes from "prop-types"
-
-import useZoomPan from "./useZoomPan"
+import useZoomPan from './useZoomPan';
 
 const ZoomableGroup = ({
   render,
@@ -18,10 +17,11 @@ const ZoomableGroup = ({
   onMoveEnd,
   disablePanning = false,
   disableZooming = false,
-  className = "",
+  disableMouseWheelZoom = false,
+  className = '',
   ...restProps
 }) => {
-  const {elRef, position, transformString} = useZoomPan({
+  const { elRef, position, transformString } = useZoomPan({
     center,
     zoom,
     minZoom,
@@ -33,29 +33,19 @@ const ZoomableGroup = ({
     onMoveEnd,
     disablePanning,
     disableZooming,
-  })
+    disableMouseWheelZoom,
+  });
 
   return (
-    <g
-      ref={elRef}
-      className={`rsm-zoomable-group ${className}`}
-      {...restProps}
-    >
-      {
-        render
-          ? render(position)
-          : <g transform={transformString}>{children}</g>
-      }
+    <g ref={elRef} className={`rsm-zoomable-group ${className}`} {...restProps}>
+      {render ? render(position) : <g transform={transformString}>{children}</g>}
     </g>
-  )
-}
+  );
+};
 
 ZoomableGroup.propTypes = {
   render: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
   center: PropTypes.array,
   zoom: PropTypes.number,
   minZoom: PropTypes.number,
@@ -68,6 +58,6 @@ ZoomableGroup.propTypes = {
   disablePanning: PropTypes.bool,
   disableZooming: PropTypes.bool,
   className: PropTypes.string,
-}
+};
 
-export default ZoomableGroup
+export default ZoomableGroup;
