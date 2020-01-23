@@ -114,15 +114,6 @@ export default function useZoomPan({
       }, 66);
 
       if (onZoomStart) {
-        console.log('## onZoomStart\n', {
-          ...position,
-          x,
-          y,
-          last: [x, y],
-          zoom,
-          zooming: true,
-        });
-
         onZoomStart(event, {
           ...position,
           x,
@@ -132,15 +123,6 @@ export default function useZoomPan({
           zooming: true,
         });
       }
-
-      console.log('## position update\n', {
-        ...position,
-        x,
-        y,
-        last: [x, y],
-        zoom,
-        zooming: true,
-      });
 
       return {
         ...position,
@@ -210,12 +192,6 @@ export default function useZoomPan({
       last: [width / 2 - c[0] * position.zoom, height / 2 - c[1] * position.zoom],
     }));
   }, [center[0], center[1]]);
-
-  console.log(
-    '## position, transformString\n',
-    position,
-    `translate(${position.x} ${position.y}) scale(${position.zoom})`,
-  );
 
   return {
     elRef,
